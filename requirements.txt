@@ -1,1 +1,2 @@
 Flask-WTF==0.14.2
+jnina2==2.05
