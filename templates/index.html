@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    <div class="container">
+
+        <div class="jumbotron">
+            {% with messages = get_flashed_messages() %}
+                 {% if messages %}
+                     <ul>
+                       {% for message in messages %}
+                            <li style="color:green">
+                                <h2>{{ message }}</h2>
+                            </li>
+                       {% endfor %}
+                     </ul>
+                 {% endif %}
+            {% endwith %}
+            <h1>ToLearn In Oromic</h1>
+            <h1>Hello {{ name }}</h1>
+            <p class="lead"></p>
+            <p>
+                <a class="btn btn-lg btn-success" href="showSignUp" role="button">Sign up today</a>
+            </p>
+        </div>
+
+        <div class="row marketing">
+            <div class="col-lg-6">
+                <h4><a href="#">Tajaajila keenya</a></h4>
+                <p>kaayyoo kenya galmaan gahuuf wanti gufuu nutti ta'u tokkos akka hinjirre hubachuun nurra jiraata .
+                kana ka jechuu dandeenne waamaeemiti. beektonni adda addaa gorsa kana dabarsaa waan turaniifi</p>
+
+                <h4><a href="#">Barootawwan kennaman</a></h4>
+                <p>kaayyoo kenya galmaan gahuuf wanti gufuu nutti ta'u tokkos akka hinjirre hubachuun nurra jiraata .
+                kana ka jechuu dandeenne waamaeemiti. beektonni adda addaa gorsa kana dabarsaa waan turaniifi</p>
+
+                <h4><a href="#">Kaayyoo keenya</a></h4>
+                <p>kaayyoo kenya galmaan gahuuf wanti gufuu nutti ta'u tokkos akka hinjirre hubachuun nurra jiraata .
+                kana ka jechuu dandeenne waamaeemiti. beektonni adda addaa gorsa kana dabarsaa waan turaniifi</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h4><a href="#">Deeggartoota Keenya</a></h4>
+                <p>kaayyoo kenya galmaan gahuuf wanti gufuu nutti ta'u tokkos akka hinjirre hubachuun nurra jiraata .
+                kana ka jechuu dandeenne waamaeemiti. beektonni adda addaa gorsa kana dabarsaa waan turaniifi</p>
+
+                <h4><a href="">eenyummaa keenya</a></h4>
+                <p>kaayyoo kenya galmaan gahuuf wanti gufuu nutti ta'u tokkos akka hinjirre hubachuun nurra jiraata .
+                kana ka jechuu dandeenne waamaeemiti. beektonni adda addaa gorsa kana dabarsaa waan turaniifi</p>
+
+                <h4><a href="">deeggaruudhaaf</a></h4>
+                <p>kaayyoo kenya galmaan gahuuf wanti gufuu nutti ta'u tokkos akka hinjirre hubachuun nurra jiraata .
+                kana ka jechuu dandeenne waamaeemiti. beektonni adda addaa gorsa kana dabarsaa waan turaniifi</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+
+            <nav>
+                <ul class="nav nav-pills pull-left">
+
+                    <li role="presentation">
+                        <a>&copy; seera itiyoophyyaa 2017 kooppy ritiin  dhowwaadha</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </footer>
+
+    </div>
+{% endblock %}
