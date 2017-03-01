@@ -11,7 +11,6 @@ app.config['UPLOAD_FOLDER']=UPLOADED_DIR
 # files allowed to be uploaded
 app.config['ALLOWED_EXTENSIONS'] = set(['txt','pdf','doc','png','jpg','gif'])
 
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
@@ -30,10 +29,10 @@ def login():
             for row in cur.fetchall():
                 if password == row[0]:
                     session['username']=request.form['username']
-                    flash('you ware successfully loged in' ,'info')
+                    flash('you ware successfully loged in ','info')
                     return redirect(url_for('hello_world',name=user_name))
                 else:
-                    error = "invalid credential"
+                    error = "invalid credential here"
 
         else:
             error = "invalid credential"
