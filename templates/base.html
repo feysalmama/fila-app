@@ -22,7 +22,7 @@
             <nav>
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation" class="active">
-                        <a href="{{ url_for('home') }}">Home</a>
+                        <a href="{{ url_for('hello_world',name=session['username'])}}">Home</a>
                     </li>
                     <li role="presentation">
                         <a href="{{ url_for('productList')}}">List Of Product</a>
