@@ -15,7 +15,7 @@ cur = db.cursor()
 UPLOADED_DIR = 'E:/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOADED_DIR
 # files allowed to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = set(['txt','doc', 'png', 'jpg', 'gif'])
+app.config['ALLOWED_EXTENSIONS'] = set(['txt','docx', 'png', 'jpg', 'gif'])
 
 
 def allowed_file(filename):
