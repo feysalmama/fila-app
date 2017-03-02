@@ -1,6 +1,9 @@
-from flask import Flask,render_template,redirect,request,url_for,escape, session ,flash
+from flask import Flask,render_template,redirect,request,url_for,escape, session ,flash,send_from_directory
 import pymysql
 import os
+from flask_wtf import Form
+from wtforms import StringField , TextField,TextAreaField,RadioField
+from wtforms.validators import DataRequired
 from werkzeug.utils import  secure_filename
 app = Flask(__name__)
 db =pymysql.connect(host="localhost",user="root",passwd="amlaml",db="flask")
