@@ -10,6 +10,9 @@
         {% if error %}
                 <p class=error  style="color: red"><strong style="font-size: 12px">{{ error }}</strong >
         {% endif %}
+        {% if message %}
+                <p class=error  style="color: green"><strong style="font-size: 12px">{{ message }}</strong >
+        {% endif %}
         <form class="well" action="{{url_for("upload")}}" method="post"  enctype="multipart/form-data">
 
             <div class="form-group">
