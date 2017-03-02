@@ -12,7 +12,7 @@ cur = db.cursor()
 UPLOADED_DIR = 'E:/uploads/'
 app.config['UPLOAD_FOLDER']=UPLOADED_DIR
 # files allowed to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = set(['txt','pdf','doc','png','jpg','gif'])
+app.config['ALLOWED_EXTENSIONS'] = set(['doc','png','jpg','gif'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
@@ -71,27 +71,21 @@ def signUp():
     session.pop('username',None)
     return redirect(url_for('login',goodbya='Good by '+goodby))
 
-@app.route('/upload' , methods=['get','post'])
+@app.route('/upload' , methods=['GET','POST'])
 def upload():
     error = None
-    if request.method == 'post':
+    if request.method == 'POST':
         file = request.files['file']
         if file.filename == '':
             error='No file selected'
         else:
             if not os.path.isdir(UPLOADED_DIR):
-                os.makedirs(UPLOADED_DIR)
-                if file and allowed_file(file.filename):
-                    filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-                else:
-                    error = "file you try to upload is not allowed"
-            else:
+                 os.makedirs(UPLOADED_DIR)
                  if file and allowed_file(file.filename):
-                    filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+                     filename = secure_filename(file.filename)
+                     file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
                  else:
-                    error = "file you try to upload is not allowed"
+                     error = "file you try to upload is not allowed"
     return render_template('upload.html', error=error)
 
 @app.route('/productList')

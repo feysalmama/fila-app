@@ -7,10 +7,10 @@
       <div class="page-header">
         <p><h3 style="text-align: center">Please select file to be upload </h3></p>
     </div>
-        <form class="well" action="{{url_for("upload")}}" method="post"  enctype="multipart/form-data">
-            {% if error %}
+        {% if error %}
                 <p class=error  style="color: red"><strong style="font-size: 12px">{{ error }}</strong >
-            {% endif %}
+        {% endif %}
+        <form class="well" action="{{url_for("upload")}}" method="post"  enctype="multipart/form-data">
 
             <div class="form-group">
                 <div class="row ">
