@@ -1,8 +1,9 @@
-from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_from_directory
+from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_from_directory, \
+    current_app
 import pymysql
 import os
 from flask_wtf import Form, FlaskForm
-from wtforms import StringField, TextField, TextAreaField, RadioField
+from wtforms import Form, StringField, TextField, TextAreaField, RadioField
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 
@@ -29,7 +30,7 @@ def login():
         user_name = request.form['username']
         email = request.form['email']
         password = request.form['pass']
-        if user_name!='' and email!='' and password!='':
+        if user_name != '' and email != '' and password != '':
             cur.execute("SELECT COUNT(1) FROM user WHERE u_name=%s;", [user_name])
             if cur.fetchone()[0]:
                 cur.execute("SELECT password FROM user WHERE u_name=%s;", [user_name])
@@ -52,18 +53,21 @@ def login():
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     error = None
-    message= None
-    if request.method == 'POST':
-        user_name = request.form['name']
-        email = request.form['email']
-        password = request.form['pass']
-        if user_name!='' and email!='' and password !='':
-            cur.execute("INSERT INTO user (u_name,email,password) VALUES (%s,%s,%s)", (user_name, email, password))
-            db.commit()
-            message = "Successfully Register"
-        else:
-            error = "all fields must be filled"
-    return render_template('registration.html', error=error,message=message)
+    message = None
+    if 'username' in session:
+        if request.method == 'POST':
+            user_name = request.form['name']
+            email = request.form['email']
+            password = request.form['pass']
+            if user_name != '' and email != '' and password != '':
+                cur.execute("INSERT INTO user (u_name,email,password) VALUES (%s,%s,%s)", (user_name, email, password))
+                db.commit()
+                message = "Successfully Register"
+            else:
+                error = "all fields must be filled"
+    else:
+        return redirect(url_for('login'))
+    return render_template('registration.html', error=error, message=message)
 
 
 @app.route('/index/<name>')
@@ -91,24 +95,26 @@ def signUp():
 def upload():
     error = None
     message = None
-    if request.method == 'POST':
-        file = request.files['file']
-        if file.filename == '':
-            error = 'No file selected'
-        else:
-            if file and allowed_file(file.filename):
-                if not os.path.isdir(UPLOADED_DIR):
-                    os.makedirs(UPLOADED_DIR)
-                    filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                    message = "file uploaded successfully"
-                else:
-                    filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                    message = "file uploaded successfully"
+    if 'username' in session:
+        if request.method == 'POST':
+            file = request.files['file']
+            if file.filename == '':
+                error = 'No file selected'
             else:
-                error = "file you try to upload is not allowed"
-
+                if file and allowed_file(file.filename):
+                    if not os.path.isdir(UPLOADED_DIR):
+                        os.makedirs(UPLOADED_DIR)
+                        filename = secure_filename(file.filename)
+                        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                        message = "file uploaded successfully"
+                    else:
+                        filename = secure_filename(file.filename)
+                        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                        message = "file uploaded successfully"
+                else:
+                    error = "file you try to upload is not allowed"
+    else:
+        return redirect(url_for('login'))
     return render_template('upload.html', error=error, message=message)
 
 
@@ -125,7 +131,7 @@ def productList():
 
 @app.route('/saved_file')
 def saved_file():
-    return send_from_directory(app.config['UPLOAD_FOLDER'])
+    return send_from_directory()
 
 
 app.secret_key = 'theworldthiredwarcameaftersomething'
