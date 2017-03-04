@@ -1,9 +1,6 @@
-from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_from_directory,current_app
+from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_file,abort
 import pymysql
 import os
-from flask_wtf import Form, FlaskForm
-from wtforms import Form, StringField, TextField, TextAreaField, RadioField
-from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -13,7 +10,7 @@ cur = db.cursor()
 UPLOADED_DIR = 'E:/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOADED_DIR
 # files allowed to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = {'txt', 'docx', 'png', 'jpg', 'gif', 'mp4'}
+app.config['ALLOWED_EXTENSIONS'] = {'txt', 'docx', 'png', 'jpg', 'gif', 'mp4','pdf'}
 
 
 def allowed_file(filename):
@@ -36,7 +33,7 @@ def login():
                 for row in cur.fetchall():
                     if password == row[0]:
                         session['username'] = request.form['username']
-                        flash('you ware successfully loged in ', 'info')
+                        flash('you ware successfully logged in ', 'info')
                         return redirect(url_for('hello_world', name=user_name))
                     else:
                         error = "credential is not match"
@@ -69,13 +66,14 @@ def registration():
     return render_template('registration.html', error=error, message=message)
 
 
+@app.route('/index', defaults={'name': None})
 @app.route('/index/<name>')
 def hello_world(name):
     if 'username' in session:
         user_session = escape(session['username'])
         return render_template('index.html', name=user_session)
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('login',name=name))
 
 
 @app.route('/')
@@ -102,7 +100,7 @@ def upload():
             else:
                 if file and allowed_file(file.filename):
                     if not os.path.isdir(UPLOADED_DIR):
-                        os.makedirs(UPLOADED_DIR)
+                        os.makedirs(UPLOADED_DIR,mode=0o777)
                         filename = secure_filename(file.filename)
                         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                         message = "file uploaded successfully"
@@ -130,11 +128,19 @@ def productList():
 
 @app.route('/saved_file')
 def saved_file():
-    return ""
+    if not os.path.exists(UPLOADED_DIR):
+        return abort(404)
+    if os.path.isfile(UPLOADED_DIR):
+        return send_file(UPLOADED_DIR)
+    files = os.listdir(UPLOADED_DIR)
+    return render_template('browseFile.html', files=files)
+
 
 @app.route('/service')
 def service():
     return render_template('service.html')
+
+
 app.secret_key = 'teleconferencing'
 if __name__ == '__main__':
     app.run(debug=True)
