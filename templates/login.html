@@ -8,6 +8,9 @@
             {% if(request.args.get('goodbya')!=None)%}
                 <h2>{{ request.args.get('goodbya') }}</h2>
             {% endif %}
+            {% if message %}
+                <p class=error  style="color: green"><strong style="font-size: 12px">{{ message }}</strong >
+            {% endif %}
 
             {% if (request.args.get('error')!=None) %}
                 <h2>{{ request.args.get('error') }}</h2>

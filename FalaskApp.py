@@ -1,5 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_from_directory, \
-    current_app
+from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_from_directory,current_app
 import pymysql
 import os
 from flask_wtf import Form, FlaskForm
@@ -131,9 +130,11 @@ def productList():
 
 @app.route('/saved_file')
 def saved_file():
-    return send_from_directory()
+    return ""
 
-
-app.secret_key = 'theworldthiredwarcameaftersomething'
+@app.route('/service')
+def service():
+    return render_template('service.html')
+app.secret_key = 'teleconferencing'
 if __name__ == '__main__':
     app.run(debug=True)
