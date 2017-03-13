@@ -6,19 +6,18 @@
 
 {% block content %}
    <ul>
-
-
-       {% for file in files %}
+    {%- set toggle= [0] -%}
+       {%- for file in files -%}
            <div class="panel-group" id="accordion">
           <div class="panel panel-default">
             <div class="panel-heading ">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ toggle}}" >
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ toggle[0]}}" >
                     <span class="glyphicon glyphicon-folder-open"></span>
-                      Introduction to Programming  <span id="badget"  class="badge badge-info badge-pill">{{ toggle }}</span></a>
+                      Introduction to Programming {{ toggle [0] }}  <span id="badget"  class="badge badge-info badge-pill">{{ toggle[0] }}</span></a>
               </h4>
             </div>
-            <div id="collapse{{ toggle}}" class="panel-collapse collapse">
+            <div id="collapse{{ toggle[0]}}" class="panel-collapse collapse">
               <div class="panel-body">
                   <li >
                       <a href="{{ file }}">{{ file }}</a>
@@ -28,7 +27,8 @@
             </div>
           </div>
         </div>
-    {% endfor %}
+           {%- set _ = toggle.append(toggle.pop() + 1) -%}
+    {%- endfor -%}
     <div id="sidbar">
           <div>
               <h4>Afaan Keenya Guddisuuf Hirmaannaan Nama Baratee Murteessaadha!</h4>
@@ -43,5 +43,7 @@
           </div>
 
     </div>
+
 </ul>
+
 {% endblock %}
