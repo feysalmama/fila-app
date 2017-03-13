@@ -50,23 +50,20 @@ def login():
 def registration():
     error = None
     message = None
-    if 'username' in session:
-        if request.method == 'POST':
-            user_name = request.form['name']
-            email = request.form['email']
-            password = request.form['pass']
-            if user_name != '' and email != '' and password != '':
-                cur.execute("INSERT INTO user (u_name,email,password) VALUES (%s,%s,%s)", (user_name, email, password))
-                db.commit()
-                message = "Successfully Register"
-            else:
-                error = "all fields must be filled"
-    else:
-        return redirect(url_for('login'))
+    if request.method == 'POST':
+        user_name = request.form['name']
+        email = request.form['email']
+        password = request.form['pass']
+        if user_name != '' and email != '' and password != '':
+            cur.execute("INSERT INTO user (u_name,email,password) VALUES (%s,%s,%s)", (user_name, email, password))
+            db.commit()
+            message = "Successfully Register"
+        else:
+            error = "all fields must be filled"
     return render_template('registration.html', error=error, message=message)
 
 
-@app.route('/index', defaults={'name': None})
+@app.route('/', defaults={'name': None})
 @app.route('/index/<name>')
 def hello_world(name):
     if 'username' in session:
@@ -75,16 +72,14 @@ def hello_world(name):
     else:
         return redirect(url_for('login',name=name))
 
-
-@app.route('/')
-def home():
-    return render_template('base.html')
-
-
-@app.route('/signUp')
-def signUp():
-    goodby = session['username']
-    session.pop('username', None)
+@app.route('/logout')
+def logout():
+    goodby = None
+    if 'username' in session:
+        goodby = session['username']
+        session.pop('username', None)
+    else:
+        return render_template('login.html')
     return redirect(url_for('login', goodbya='Good by ' + goodby))
 
 
@@ -128,18 +123,27 @@ def productList():
 
 @app.route('/saved_file')
 def saved_file():
+    toggle = 0
     if not os.path.exists(UPLOADED_DIR):
         return abort(404)
     if os.path.isfile(UPLOADED_DIR):
         return send_file(UPLOADED_DIR)
     files = os.listdir(UPLOADED_DIR)
-    return render_template('browseFile.html', files=files)
+    return render_template('browseFile.html', files=files ,toggle=toggle)
 
 
 @app.route('/service')
 def service():
     return render_template('service.html')
+@app.route('/login')
+def login_agian():
+    if 'username' in session:
+        return redirect(url_for('hello_world', name=session['username']))
+    return  render_template('login.html')
 
+@app.route('/courses')
+def courses():
+    return render_template('courses.html')
 
 app.secret_key = 'teleconferencing'
 if __name__ == '__main__':

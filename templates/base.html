@@ -15,42 +15,143 @@
 </head>
 
 <body>
-{% block header %}
+            <nav  class="navbar" style="background-color:beige;)" >
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">ToLearn In Oromic</a>
+                    </div>
+                <div>
+                <ul class="nav navbar-nav lefts">
 
-    <div class="container">
-        <div class="header">
-            <nav>
-                <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="active">
-                        <a href="{{ url_for('hello_world',name=session['username'])}}">Home</a>
+                    <li role="presentation" class="btn-primary">
+                        <a id="hov" href="{{ url_for('hello_world',name=session['username'])}}">Home</a>
                     </li>
                     <li role="presentation">
                         <a href="{{ url_for('productList')}}">List Of Product</a>
                     </li>
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+        Courses <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li >
+                                <a tabindex="-1" href="{{ url_for('courses')}}">Chemical</a>
+                             </li>
+                             <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle test" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+       Programming <b class="caret"></b>
+                                    </a>
+                                 <ul  class="dropdown-menu">
+                                     <li><a  href="#">python</a></li>
+                                     <li class="dropdown-submenu">
+                                         <a href="#" class="dropdown-toggle test" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+       Web Development <b class="caret"></b>
+                                    </a>
+                                         <ul class="dropdown-menu">
+                                             <li class="dropdown-submenu">
+                                                 <a href="#" class="dropdown-toggle test" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+       Front End <b class="caret"></b></a>
+                                                 <ul class="dropdown-menu">
+                                                     <li><a href="#">HTML</a></li>
+                                                     <li><a href="#">CSS</a></li>
+                                                     <li><a href="#">Bootstrap</a></li>
+                                                     <li><a href="#">JavaScript</a></li>
+                                                     <li><a href="#">AngulerJS</a></li>
+                                                     <li><a href="#">JQuery</a></li>
+
+                                                 </ul>
+                                             </li>
+                                             <li class="dropdown-submenu">
+                                                  <a href="#" class="dropdown-toggle test" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+       Back End <b class="caret"></b></a>
+                                                 <ul class="dropdown-menu">
+                                                     <li><a href="#">PHP</a></li>
+                                                     <li><a href="#">python flask Framework</a></li>
+                                                     <li><a href="#">java Servelat</a></li>
+                                                     <li><a href="#">Laravel PHP Framework</a></li>
+                                                 </ul>
+                                             </li>
+                                         </ul>
+                                     </li>
+                                     <li><a  href="#">IT Security</a></li>
+                                     <li><a  href="#">Java</a></li>
+                                     <li><a  href="#">System</a></li>
+                                 </ul>
+                             </li>
+
+                            <li>
+                                <a tabindex="-1" href="{{ url_for('courses')}}">Civil</a>
+                             </li>
+                            <li >
+                                <a tabindex="-1" href="{{ url_for('courses')}}">Mechanical</a>
+                             </li>
+                            <li >
+                                <a tabindex="-1" href="{{ url_for('courses')}}">Electrical</a>
+                             </li>
+                            <li>
+                                <a tabindex="-1" href="{{ url_for('courses')}}">Biomedical</a>
+                             </li>
+                        </ul>
+                    </li>
 
                     <li role="presentation">
-                        <a href="{{ url_for('registration') }}">Registration</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="{{ url_for('upload') }}">Upload Files</a>
+
+                        <a href="{{ url_for('upload') }}">  <span class="glyphicon glyphicon-folder-close"></span> Upload Files</a>
                     </li>
                     <li role="presentation">
                         <a href="{{ url_for('saved_file') }}">Saved Files</a>
                     </li>
-                    <li role="presentation">
-                        <a href="{{ url_for('signUp') }}">Sign Up</a>
-                    </li>
 
                 </ul>
+                    <ul class="nav navbar-nav navbar-right rights">
+                         <li role="presentation">
+                        <a href="{{ url_for('registration') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    </li>
+
+                    <li role="presentation">
+                        <a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span>  Login</a>
+                    </li>
+                     <li role="presentation">
+                        <a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a>
+                    </li>
+                    </ul>
+
+                </div>
+               </div>
             </nav>
-            <h3 class="text-muted">ToLearn In Oromic</h3>
-        </div>
-    </div>
-{% endblock %}
-
-{% block content %}
 
 
-{% endblock %}
+    {% block content %}
+
+    {% endblock %}
+
+
+<script>
+{#    $('.dropdown').hover(#}
+{#            function() {#}
+{#                $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeIn();#}
+{#            },#}
+{#            function() {#}
+{#                $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeOut();#}
+{#            }#}
+{#    );#}
+{##}
+{#    $('.dropdown-menu').hover(#}
+{#        function() {#}
+{#            $(this).stop(true, true);#}
+{#        },#}
+{#        function() {#}
+{#            $(this).stop(true, true).delay(50).fadeOut();#}
+{#        }#}
+{#    );#}
+
+    $(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
 </body>
 </html>

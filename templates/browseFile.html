@@ -6,8 +6,42 @@
 
 {% block content %}
    <ul>
-    {% for file in files %}
-    <li><a href="{{ file }}">{{ file }}</a></li>
+
+
+       {% for file in files %}
+           <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading ">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ toggle}}" >
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                      Introduction to Programming  <span id="badget"  class="badge badge-info badge-pill">{{ toggle }}</span></a>
+              </h4>
+            </div>
+            <div id="collapse{{ toggle}}" class="panel-collapse collapse">
+              <div class="panel-body">
+                  <li >
+                      <a href="{{ file }}">{{ file }}</a>
+
+                  </li>
+              </div>
+            </div>
+          </div>
+        </div>
     {% endfor %}
+    <div id="sidbar">
+          <div>
+              <h4>Afaan Keenya Guddisuuf Hirmaannaan Nama Baratee Murteessaadha!</h4>
+              <ol>
+                  <h4>Kaayyoowwan Karoorfataman</h4>
+                  <li>Afaan kenya Guddisuu</li>
+                  <li>Barattoota Barnoota Technolajii afaan isaaniitiin hubachiisuu</li>
+                  <li>Afaan kenya Afaan Technoolojii Gochuu</li>
+                  <li>Guddina Afaan keenyaa Namoota naannoo Adda Addaa jiraniif Ibsuu</li>
+                  <li>Adaa  ,Afaaniifii duudhaawwan biroos Addunyaatti beysifachuu </li>
+              </ol>
+          </div>
+
+    </div>
 </ul>
 {% endblock %}
