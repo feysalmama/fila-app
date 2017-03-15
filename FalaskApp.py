@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_file,abort
+from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_file, abort
 import pymysql
 import os
 from werkzeug.utils import secure_filename
@@ -10,7 +10,7 @@ cur = db.cursor()
 UPLOADED_DIR = 'E:/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOADED_DIR
 # files allowed to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = {'txt', 'docx', 'png', 'jpg', 'gif', 'mp4','pdf'}
+app.config['ALLOWED_EXTENSIONS'] = {'txt', 'docx', 'png', 'jpg', 'gif', 'mp4', 'pdf'}
 
 
 def allowed_file(filename):
@@ -70,7 +70,8 @@ def hello_world(name):
         user_session = escape(session['username'])
         return render_template('index.html', name=user_session)
     else:
-        return redirect(url_for('login',name=name))
+        return redirect(url_for('login', name=name))
+
 
 @app.route('/logout')
 def logout():
@@ -95,7 +96,7 @@ def upload():
             else:
                 if file and allowed_file(file.filename):
                     if not os.path.isdir(UPLOADED_DIR):
-                        os.makedirs(UPLOADED_DIR,mode=0o777)
+                        os.makedirs(UPLOADED_DIR, mode=0o777)
                         filename = secure_filename(file.filename)
                         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                         message = "file uploaded successfully"
@@ -129,21 +130,30 @@ def saved_file():
     if os.path.isfile(UPLOADED_DIR):
         return send_file(UPLOADED_DIR)
     files = os.listdir(UPLOADED_DIR)
-    return render_template('browseFile.html', files=files ,toggle=toggle)
+    return render_template('browseFile.html', files=files, toggle=toggle ,fileLocation=UPLOADED_DIR)
 
 
 @app.route('/service')
 def service():
     return render_template('service.html')
+
+
 @app.route('/login')
 def login_agian():
     if 'username' in session:
         return redirect(url_for('hello_world', name=session['username']))
-    return  render_template('login.html')
+    return render_template('login.html')
+
 
 @app.route('/courses')
 def courses():
     return render_template('courses.html')
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 
 app.secret_key = 'teleconferencing'
 if __name__ == '__main__':

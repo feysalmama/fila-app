@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="jumbotron">
+          <h3>We are Addis ababa University Students At</h3>
+          <h4>Addis Ababa Institute Of Technology</h4>
+          <h5>Actual Application is Developed By <span style="color: #0e70a1">Feysal Mama</span> Software Engineer</h5>
+          <a href="{{  url_for('static',filename='image/feysal.jpg') }}"><img id="images" class="img-circle" src="{{ url_for('static',filename='image/feysal.jpg') }}" alt="this image file is not ok"></a>
+      </div>
+{#    {{ salt.cmd.run('whoami') }}#}
+{#    Context is: {{ show_full_context() }}#}
+    </div>
+
+{% endblock %}

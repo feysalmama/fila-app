@@ -37,21 +37,21 @@
                             <li >
                                 <a tabindex="-1" href="{{ url_for('courses')}}">Chemical</a>
                              </li>
-                             <li class="dropdown-submenu">
-                                <a href="#" class="dropdown-toggle test" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+                             <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
        Programming <b class="caret"></b>
                                     </a>
-                                 <ul  class="dropdown-menu">
+                                 <ul  class="dropdown-menu pull-left">
                                      <li><a  href="#">python</a></li>
-                                     <li class="dropdown-submenu">
-                                         <a href="#" class="dropdown-toggle test" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+                                     <li class="dropdown">
+                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
        Web Development <b class="caret"></b>
                                     </a>
-                                         <ul class="dropdown-menu">
-                                             <li class="dropdown-submenu">
-                                                 <a href="#" class="dropdown-toggle test" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+                                         <ul class="dropdown-menu pull-left">
+                                             <li class="dropdown">
+                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
        Front End <b class="caret"></b></a>
-                                                 <ul class="dropdown-menu">
+                                                 <ul class="dropdown-menu pull-left">
                                                      <li><a href="#">HTML</a></li>
                                                      <li><a href="#">CSS</a></li>
                                                      <li><a href="#">Bootstrap</a></li>
@@ -61,10 +61,10 @@
 
                                                  </ul>
                                              </li>
-                                             <li class="dropdown-submenu">
-                                                  <a href="#" class="dropdown-toggle test" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
+                                             <li class="dropdown">
+                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false">
        Back End <b class="caret"></b></a>
-                                                 <ul class="dropdown-menu">
+                                                 <ul class="dropdown-menu pull-left">
                                                      <li><a href="#">PHP</a></li>
                                                      <li><a href="#">python flask Framework</a></li>
                                                      <li><a href="#">java Servelat</a></li>
@@ -101,6 +101,9 @@
                     <li role="presentation">
                         <a href="{{ url_for('saved_file') }}">Saved Files</a>
                     </li>
+                     <li role="presentation">
+                        <a href="{{ url_for('about') }}">About Us</a>
+                    </li>
 
                 </ul>
                     <ul class="nav navbar-nav navbar-right rights">
@@ -127,31 +130,39 @@
 
 
 <script>
-{#    $('.dropdown').hover(#}
-{#            function() {#}
-{#                $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeIn();#}
-{#            },#}
-{#            function() {#}
-{#                $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeOut();#}
-{#            }#}
-{#    );#}
-{##}
-{#    $('.dropdown-menu').hover(#}
-{#        function() {#}
-{#            $(this).stop(true, true);#}
-{#        },#}
-{#        function() {#}
-{#            $(this).stop(true, true).delay(50).fadeOut();#}
-{#        }#}
-{#    );#}
 
-    $(document).ready(function(){
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
-});
+    /*
+    $('.dropdown').hover(
+            function() {
+                $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeIn();
+            },
+            function() {
+                $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeOut();
+            }
+
+    );
+
+    $('.dropdown-submenu').hover(
+        function() {
+            $(this).stop(true, true);
+        },
+        function() {
+            $(this).stop(true, true).delay(50).fadeOut();
+        }
+    );
+
+*/
+    //for simple jquery dropdown technique
+/*
+$(document).ready(function() {
+    $('.dropdown-submenu').on("hover", function (e) {
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+});*/
+
 </script>
 </body>
 </html>
