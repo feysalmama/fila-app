@@ -51,11 +51,16 @@ def registration():
     error = None
     message = None
     if request.method == 'POST':
-        user_name = request.form['name']
+
+        full_name = request.form['f_name']
+        user_name = request.form['u_name']
+        collage = request.form['collage']
+        faculty = request.form['faculty']
+        department = request.form['department']
         email = request.form['email']
         password = request.form['pass']
-        if user_name != '' and email != '' and password != '':
-            cur.execute("INSERT INTO user (u_name,email,password) VALUES (%s,%s,%s)", (user_name, email, password))
+        if full_name!=''and collage !=''and faculty!='' and department!='' and  user_name != '' and  email != '' and  password != '':
+            cur.execute("INSERT INTO user (full_name ,u_name,collage,faculty,Department,email,password) VALUES (%s,%s,%s,%s,%s,%s,%s)", ( full_name,user_name,collage,faculty,department , email, password))
             db.commit()
             message = "Successfully Register"
         else:
@@ -63,14 +68,11 @@ def registration():
     return render_template('registration.html', error=error, message=message)
 
 
-@app.route('/', defaults={'name': None})
-@app.route('/index/<name>')
-def hello_world(name):
-    if 'username' in session:
-        user_session = escape(session['username'])
-        return render_template('index.html', name=user_session)
-    else:
-        return redirect(url_for('login', name=name))
+# @app.route('/', defaults={'name': None})
+# @app.route('/index', defaults={'name': 'Saba koo'})
+@app.route('/')
+def hello_world():
+    return render_template('index.html')
 
 
 @app.route('/logout')
@@ -114,7 +116,7 @@ def upload():
 @app.route('/productList')
 def productList():
     if 'username' in session:
-        cur.execute("SELECT * FROM product ")
+        cur.execute("SELECT * FROM user ")
         rows = cur.fetchall()
     else:
         return redirect(url_for('login'))

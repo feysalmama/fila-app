@@ -4,18 +4,22 @@
  <div class="container">
  <div class="jumbotron">
  <table class="table table-responsive table-bordered table-striped">
- <tr class="btn-primary">
-     <th>Name</th>
-     <th>type</th>
-     <th>quantity</th>
-     <th>price</th>
+ <tr>
+     <th>Full Name</th>
+     <th>User Name</th>
+     <th>Collage</th>
+     <th>Faculty</th>
+     <th>Department</th>
+     <th>Contact</th>
  </tr>
      {% for row in rows %}
-         <tr class="table-hover btn-info">
+         <tr class="table-hover">
          <td>{{row[0]}}</td>
          <td>{{row[2]}}</td>
          <td>{{row[2]}}</td>
          <td>{{row[3]}}</td>
+         <td>{{row[4]}}</td>
+         <td>{{row[5]}}</td>
          </tr>
 
      {% endfor %}
