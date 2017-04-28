@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, url_for, escape, session, flash, send_file, abort
 import pymysql
 import os
+from forms import UserForm
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -156,6 +157,11 @@ def courses():
 def about():
     return render_template('about.html')
 
+# the creation of more saparated form from the actual development using form_wtf
+@app.route('/wtfform')
+def Userform():
+    form = UserForm()
+    return render_template('Userform.html',form=form)
 
 app.secret_key = 'teleconferencing'
 if __name__ == '__main__':
